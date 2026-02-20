@@ -1,0 +1,45 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "product",
+        "schema": "public",
+        "addColumns": [],
+        "deleteColumns": [
+          "imageFileId"
+        ],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [
+          "product_fk_2"
+        ],
+        "warnings": [
+          {
+            "type": "columnDropped",
+            "message": "Column \"imageFileId\" of table \"product\" will be dropped.",
+            "table": "product",
+            "columns": [
+              "imageFileId"
+            ],
+            "destrucive": true
+          }
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column \"imageFileId\" of table \"product\" will be dropped.",
+      "table": "product",
+      "columns": [
+        "imageFileId"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

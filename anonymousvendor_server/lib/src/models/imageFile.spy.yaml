@@ -1,0 +1,12 @@
+
+
+class: ImageFile
+table: image_file
+fields:
+
+
+    product: Product?, relation(optional)
+    name: String
+    path: String
+    storageId: String
+    createdAt: DateTime?

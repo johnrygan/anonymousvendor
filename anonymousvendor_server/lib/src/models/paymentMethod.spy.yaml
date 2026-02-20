@@ -1,0 +1,6 @@
+enum: PaymentMethod
+values:
+  - mpesa
+  - card
+  - wallet
+

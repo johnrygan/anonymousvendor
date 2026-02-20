@@ -1,0 +1,16 @@
+class: Product
+table: product
+fields:
+  user: AppUser?, relation(optional)
+  category: Category?, relation(optional)
+  name: String
+  description: String
+  price: double
+  images: List<ImageFile>?, relation(optional)
+  stock: int
+  createdAt: DateTime
+  updatedAt: DateTime
+
+
+
+

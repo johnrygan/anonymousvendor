@@ -1,0 +1,8 @@
+class: Review
+table: review
+fields:
+
+  user: AppUser?, relation(optional)
+  rating: int
+  comment: String
+  createdAt: DateTime?

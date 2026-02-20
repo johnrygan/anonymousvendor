@@ -1,0 +1,6 @@
+enum: Currency
+values:
+  - KES
+  - USD
+  - EURO
+

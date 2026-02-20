@@ -1,0 +1,107 @@
+{
+  "actions": [
+    {
+      "type": "deleteTable",
+      "deleteTable": "image_file"
+    },
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "image_file",
+        "dartName": "ImageFile",
+        "module": "anonymousvendor",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 6,
+            "isNullable": false,
+            "columnDefault": "nextval('image_file_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "userId",
+            "columnType": 6,
+            "isNullable": true,
+            "dartType": "int?"
+          },
+          {
+            "name": "name",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "path",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "storageId",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "createdAt",
+            "columnType": 4,
+            "isNullable": true,
+            "dartType": "DateTime?"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "image_file_fk_0",
+            "columns": [
+              "userId"
+            ],
+            "referenceTable": "appuser",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "image_file_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          }
+        ],
+        "managed": true
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column \"data\" of table \"image_file\" will be dropped.",
+      "table": "image_file",
+      "columns": [
+        "data"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"image_file\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "image_file",
+      "columns": [
+        "path"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

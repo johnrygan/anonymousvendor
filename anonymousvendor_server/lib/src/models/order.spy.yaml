@@ -1,0 +1,16 @@
+class: Order
+table: order
+fields:
+
+  user: AppUser?, relation(optional)
+  totalAmount: double
+  status: OrderStatus  # pending, confirmed, delivered, cancelled
+  deliveryAddress: String
+  latitude: double
+  longitude: double
+  createdAt: DateTime
+  updatedAt: DateTime
+indexes:
+  order_location_idx:
+    fields: latitude, longitude
+    type: btree

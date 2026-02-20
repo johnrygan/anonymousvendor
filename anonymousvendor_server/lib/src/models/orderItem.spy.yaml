@@ -1,0 +1,8 @@
+class: OrderItem
+table: order_item
+fields:
+
+  order: Order?, relation(optional)
+  product: Product?, relation(optional)
+  quantity: int
+  price: double

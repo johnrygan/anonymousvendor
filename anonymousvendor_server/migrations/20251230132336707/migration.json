@@ -1,0 +1,66 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "image_file",
+        "schema": "public",
+        "addColumns": [
+          {
+            "name": "productId",
+            "columnType": 6,
+            "isNullable": true,
+            "dartType": "int?"
+          }
+        ],
+        "deleteColumns": [
+          "userId"
+        ],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [
+          {
+            "constraintName": "image_file_fk_0",
+            "columns": [
+              "productId"
+            ],
+            "referenceTable": "product",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          }
+        ],
+        "deleteForeignKeys": [
+          "image_file_fk_0"
+        ],
+        "warnings": [
+          {
+            "type": "columnDropped",
+            "message": "Column \"userId\" of table \"image_file\" will be dropped.",
+            "table": "image_file",
+            "columns": [
+              "userId"
+            ],
+            "destrucive": true
+          }
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column \"userId\" of table \"image_file\" will be dropped.",
+      "table": "image_file",
+      "columns": [
+        "userId"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

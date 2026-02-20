@@ -1,0 +1,14 @@
+class: Payment
+table: payment
+fields:
+
+  order: Order?, relation(optional)
+  user: AppUser?, relation(optional)
+  amount: double
+  currency: String # e.g., KES, USD
+  method: String # e.g., mpesa, card, wallet
+  status: String # pending, completed, failed, refunded
+  transactionRef: String?, # external gateway reference
+  metadata: String? # extra info (JSON string)
+  createdAt: DateTime
+  updatedAt: DateTime

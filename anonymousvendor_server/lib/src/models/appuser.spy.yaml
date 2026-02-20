@@ -1,0 +1,18 @@
+class: AppUser
+table: appuser
+fields:
+
+  name: String
+  email: String
+  phone: String
+  passwordHash: String
+  role: UserRole
+  longitude: double
+  latitude: double
+  isActive: bool
+  isVerified: bool
+  createdAt: DateTime?
+indexes:
+  appUser_location_idx:
+    fields: longitude, latitude
+    type: btree

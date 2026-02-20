@@ -1,0 +1,7 @@
+enum: OrderStatus
+values:
+  - confirmed
+  - pending
+  - delivered
+  - cancelled
+

@@ -1,0 +1,7 @@
+enum: UserRole
+values:
+  - user
+  - guest
+  - superuser
+  - vendor
+  - admin

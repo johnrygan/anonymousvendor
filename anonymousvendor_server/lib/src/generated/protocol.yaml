@@ -1,0 +1,39 @@
+appUser:
+  - createUser:
+  - deleteUser:
+  - getAllUsers:
+  - getUserRole:
+  - updateUser:
+category:
+  - createCategory:
+  - deleteCategory:
+  - getAllCategories:
+greeting:
+  - hello:
+image:
+  - uploadImage:
+  - getUploadDescription:
+  - getImage:
+  - getAllImages:
+  - deleteImage:
+  - getImageByProductId:
+orderItem:
+  - createItem:
+  - deleteItem:
+order:
+  - createOrder:
+  - getAllOrders:
+  - deleteOrder:
+payment:
+  - makePayment:
+  - deletePayment:
+  - getAllPayments:
+product:
+  - createProduct:
+  - deleteProduct:
+  - getProductsPaged:
+  - getAllProducts:
+  - getProductsByCategory:
+reviews:
+  - createReview:
+  - deleteReview:

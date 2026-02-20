@@ -1,0 +1,6 @@
+enum: PaymentStatus
+values:
+  - completed
+  - failed
+  - pending
+  - refunded
