@@ -48,7 +48,7 @@ abstract class AppUser implements _i1.SerializableModel {
       email: jsonSerialization['email'] as String,
       phone: jsonSerialization['phone'] as String,
       passwordHash: jsonSerialization['passwordHash'] as String,
-      role: _i2.UserRole.fromJson((jsonSerialization['role'] as int)),
+      role: _i2.UserRole.fromJson((jsonSerialization['role'] as String)),
       longitude: (jsonSerialization['longitude'] as num).toDouble(),
       latitude: (jsonSerialization['latitude'] as num).toDouble(),
       isActive: jsonSerialization['isActive'] as bool,

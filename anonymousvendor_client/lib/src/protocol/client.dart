@@ -55,13 +55,6 @@ class EndpointAppUser extends _i1.EndpointRef {
         'getUserRole',
         {'appuserId': appuserId},
       );
-
-  _i2.Future<_i3.AppUser?> updateUser(_i3.AppUser appuser) =>
-      caller.callServerEndpoint<_i3.AppUser?>(
-        'appUser',
-        'updateUser',
-        {'appuser': appuser},
-      );
 }
 
 /// {@category Endpoint}

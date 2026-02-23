@@ -5,3 +5,4 @@ fields:
   name: String
   description: String
   createdAt: DateTime
+  user: AppUser?, relation(optional)

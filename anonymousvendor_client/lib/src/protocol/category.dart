@@ -10,6 +10,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
+import 'appuser.dart' as _i2;
 
 abstract class Category implements _i1.SerializableModel {
   Category._({
@@ -17,6 +18,8 @@ abstract class Category implements _i1.SerializableModel {
     required this.name,
     required this.description,
     required this.createdAt,
+    this.userId,
+    this.user,
   });
 
   factory Category({
@@ -24,6 +27,8 @@ abstract class Category implements _i1.SerializableModel {
     required String name,
     required String description,
     required DateTime createdAt,
+    int? userId,
+    _i2.AppUser? user,
   }) = _CategoryImpl;
 
   factory Category.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -33,6 +38,11 @@ abstract class Category implements _i1.SerializableModel {
       description: jsonSerialization['description'] as String,
       createdAt:
           _i1.DateTimeJsonExtension.fromJson(jsonSerialization['createdAt']),
+      userId: jsonSerialization['userId'] as int?,
+      user: jsonSerialization['user'] == null
+          ? null
+          : _i2.AppUser.fromJson(
+              (jsonSerialization['user'] as Map<String, dynamic>)),
     );
   }
 
@@ -47,6 +57,10 @@ abstract class Category implements _i1.SerializableModel {
 
   DateTime createdAt;
 
+  int? userId;
+
+  _i2.AppUser? user;
+
   /// Returns a shallow copy of this [Category]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
@@ -55,6 +69,8 @@ abstract class Category implements _i1.SerializableModel {
     String? name,
     String? description,
     DateTime? createdAt,
+    int? userId,
+    _i2.AppUser? user,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -63,6 +79,8 @@ abstract class Category implements _i1.SerializableModel {
       'name': name,
       'description': description,
       'createdAt': createdAt.toJson(),
+      if (userId != null) 'userId': userId,
+      if (user != null) 'user': user?.toJson(),
     };
   }
 
@@ -80,11 +98,15 @@ class _CategoryImpl extends Category {
     required String name,
     required String description,
     required DateTime createdAt,
+    int? userId,
+    _i2.AppUser? user,
   }) : super._(
           id: id,
           name: name,
           description: description,
           createdAt: createdAt,
+          userId: userId,
+          user: user,
         );
 
   /// Returns a shallow copy of this [Category]
@@ -96,12 +118,16 @@ class _CategoryImpl extends Category {
     String? name,
     String? description,
     DateTime? createdAt,
+    Object? userId = _Undefined,
+    Object? user = _Undefined,
   }) {
     return Category(
       id: id is int? ? id : this.id,
       name: name ?? this.name,
       description: description ?? this.description,
       createdAt: createdAt ?? this.createdAt,
+      userId: userId is int? ? userId : this.userId,
+      user: user is _i2.AppUser? ? user : this.user?.copyWith(),
     );
   }
 }

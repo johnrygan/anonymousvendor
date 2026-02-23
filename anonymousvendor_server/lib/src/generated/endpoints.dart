@@ -155,24 +155,6 @@ class Endpoints extends _i1.EndpointDispatch {
             params['appuserId'],
           ),
         ),
-        'updateUser': _i1.MethodConnector(
-          name: 'updateUser',
-          params: {
-            'appuser': _i1.ParameterDescription(
-              name: 'appuser',
-              type: _i1.getType<_i11.AppUser>(),
-              nullable: false,
-            )
-          },
-          call: (
-            _i1.Session session,
-            Map<String, dynamic> params,
-          ) async =>
-              (endpoints['appUser'] as _i2.AppUserEndpoint).updateUser(
-            session,
-            params['appuser'],
-          ),
-        ),
       },
     );
     connectors['category'] = _i1.EndpointConnector(

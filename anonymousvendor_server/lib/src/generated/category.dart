@@ -8,8 +8,11 @@
 // ignore_for_file: type_literal_in_constant_pattern
 // ignore_for_file: use_super_parameters
 
+// ignore_for_file: unnecessary_null_comparison
+
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
+import 'appuser.dart' as _i2;
 
 abstract class Category
     implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
@@ -18,6 +21,8 @@ abstract class Category
     required this.name,
     required this.description,
     required this.createdAt,
+    this.userId,
+    this.user,
   });
 
   factory Category({
@@ -25,6 +30,8 @@ abstract class Category
     required String name,
     required String description,
     required DateTime createdAt,
+    int? userId,
+    _i2.AppUser? user,
   }) = _CategoryImpl;
 
   factory Category.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -34,6 +41,11 @@ abstract class Category
       description: jsonSerialization['description'] as String,
       createdAt:
           _i1.DateTimeJsonExtension.fromJson(jsonSerialization['createdAt']),
+      userId: jsonSerialization['userId'] as int?,
+      user: jsonSerialization['user'] == null
+          ? null
+          : _i2.AppUser.fromJson(
+              (jsonSerialization['user'] as Map<String, dynamic>)),
     );
   }
 
@@ -50,6 +62,10 @@ abstract class Category
 
   DateTime createdAt;
 
+  int? userId;
+
+  _i2.AppUser? user;
+
   @override
   _i1.Table<int?> get table => t;
 
@@ -61,6 +77,8 @@ abstract class Category
     String? name,
     String? description,
     DateTime? createdAt,
+    int? userId,
+    _i2.AppUser? user,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -69,6 +87,8 @@ abstract class Category
       'name': name,
       'description': description,
       'createdAt': createdAt.toJson(),
+      if (userId != null) 'userId': userId,
+      if (user != null) 'user': user?.toJson(),
     };
   }
 
@@ -79,11 +99,13 @@ abstract class Category
       'name': name,
       'description': description,
       'createdAt': createdAt.toJson(),
+      if (userId != null) 'userId': userId,
+      if (user != null) 'user': user?.toJsonForProtocol(),
     };
   }
 
-  static CategoryInclude include() {
-    return CategoryInclude._();
+  static CategoryInclude include({_i2.AppUserInclude? user}) {
+    return CategoryInclude._(user: user);
   }
 
   static CategoryIncludeList includeList({
@@ -120,11 +142,15 @@ class _CategoryImpl extends Category {
     required String name,
     required String description,
     required DateTime createdAt,
+    int? userId,
+    _i2.AppUser? user,
   }) : super._(
           id: id,
           name: name,
           description: description,
           createdAt: createdAt,
+          userId: userId,
+          user: user,
         );
 
   /// Returns a shallow copy of this [Category]
@@ -136,12 +162,16 @@ class _CategoryImpl extends Category {
     String? name,
     String? description,
     DateTime? createdAt,
+    Object? userId = _Undefined,
+    Object? user = _Undefined,
   }) {
     return Category(
       id: id is int? ? id : this.id,
       name: name ?? this.name,
       description: description ?? this.description,
       createdAt: createdAt ?? this.createdAt,
+      userId: userId is int? ? userId : this.userId,
+      user: user is _i2.AppUser? ? user : this.user?.copyWith(),
     );
   }
 }
@@ -160,6 +190,10 @@ class CategoryTable extends _i1.Table<int?> {
       'createdAt',
       this,
     );
+    userId = _i1.ColumnInt(
+      'userId',
+      this,
+    );
   }
 
   late final _i1.ColumnString name;
@@ -168,20 +202,50 @@ class CategoryTable extends _i1.Table<int?> {
 
   late final _i1.ColumnDateTime createdAt;
 
+  late final _i1.ColumnInt userId;
+
+  _i2.AppUserTable? _user;
+
+  _i2.AppUserTable get user {
+    if (_user != null) return _user!;
+    _user = _i1.createRelationTable(
+      relationFieldName: 'user',
+      field: Category.t.userId,
+      foreignField: _i2.AppUser.t.id,
+      tableRelation: tableRelation,
+      createTable: (foreignTableRelation) =>
+          _i2.AppUserTable(tableRelation: foreignTableRelation),
+    );
+    return _user!;
+  }
+
   @override
   List<_i1.Column> get columns => [
         id,
         name,
         description,
         createdAt,
+        userId,
       ];
+
+  @override
+  _i1.Table? getRelationTable(String relationField) {
+    if (relationField == 'user') {
+      return user;
+    }
+    return null;
+  }
 }
 
 class CategoryInclude extends _i1.IncludeObject {
-  CategoryInclude._();
+  CategoryInclude._({_i2.AppUserInclude? user}) {
+    _user = user;
+  }
+
+  _i2.AppUserInclude? _user;
 
   @override
-  Map<String, _i1.Include?> get includes => {};
+  Map<String, _i1.Include?> get includes => {'user': _user};
 
   @override
   _i1.Table<int?> get table => Category.t;
@@ -209,6 +273,10 @@ class CategoryIncludeList extends _i1.IncludeList {
 
 class CategoryRepository {
   const CategoryRepository._();
+
+  final attachRow = const CategoryAttachRowRepository._();
+
+  final detachRow = const CategoryDetachRowRepository._();
 
   /// Returns a list of [Category]s matching the given query parameters.
   ///
@@ -241,6 +309,7 @@ class CategoryRepository {
     bool orderDescending = false,
     _i1.OrderByListBuilder<CategoryTable>? orderByList,
     _i1.Transaction? transaction,
+    CategoryInclude? include,
   }) async {
     return session.db.find<Category>(
       where: where?.call(Category.t),
@@ -250,6 +319,7 @@ class CategoryRepository {
       limit: limit,
       offset: offset,
       transaction: transaction,
+      include: include,
     );
   }
 
@@ -278,6 +348,7 @@ class CategoryRepository {
     bool orderDescending = false,
     _i1.OrderByListBuilder<CategoryTable>? orderByList,
     _i1.Transaction? transaction,
+    CategoryInclude? include,
   }) async {
     return session.db.findFirstRow<Category>(
       where: where?.call(Category.t),
@@ -286,6 +357,7 @@ class CategoryRepository {
       orderDescending: orderDescending,
       offset: offset,
       transaction: transaction,
+      include: include,
     );
   }
 
@@ -294,10 +366,12 @@ class CategoryRepository {
     _i1.Session session,
     int id, {
     _i1.Transaction? transaction,
+    CategoryInclude? include,
   }) async {
     return session.db.findById<Category>(
       id,
       transaction: transaction,
+      include: include,
     );
   }
 
@@ -415,6 +489,59 @@ class CategoryRepository {
     return session.db.count<Category>(
       where: where?.call(Category.t),
       limit: limit,
+      transaction: transaction,
+    );
+  }
+}
+
+class CategoryAttachRowRepository {
+  const CategoryAttachRowRepository._();
+
+  /// Creates a relation between the given [Category] and [AppUser]
+  /// by setting the [Category]'s foreign key `userId` to refer to the [AppUser].
+  Future<void> user(
+    _i1.Session session,
+    Category category,
+    _i2.AppUser user, {
+    _i1.Transaction? transaction,
+  }) async {
+    if (category.id == null) {
+      throw ArgumentError.notNull('category.id');
+    }
+    if (user.id == null) {
+      throw ArgumentError.notNull('user.id');
+    }
+
+    var $category = category.copyWith(userId: user.id);
+    await session.db.updateRow<Category>(
+      $category,
+      columns: [Category.t.userId],
+      transaction: transaction,
+    );
+  }
+}
+
+class CategoryDetachRowRepository {
+  const CategoryDetachRowRepository._();
+
+  /// Detaches the relation between this [Category] and the [AppUser] set in `user`
+  /// by setting the [Category]'s foreign key `userId` to `null`.
+  ///
+  /// This removes the association between the two models without deleting
+  /// the related record.
+  Future<void> user(
+    _i1.Session session,
+    Category category, {
+    _i1.Transaction? transaction,
+  }) async {
+    if (category.id == null) {
+      throw ArgumentError.notNull('category.id');
+    }
+
+    var $category = category.copyWith(userId: null);
+    await session.db.updateRow<Category>(
+      $category,
+      columns: [Category.t.userId],
       transaction: transaction,
     );
   }

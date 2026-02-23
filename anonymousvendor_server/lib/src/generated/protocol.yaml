@@ -3,7 +3,6 @@ appUser:
   - deleteUser:
   - getAllUsers:
   - getUserRole:
-  - updateUser:
 category:
   - createCategory:
   - deleteCategory:

@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
-
-
 import 'package:anonymousvendor_server/src/generated/protocol.dart';
 import 'package:serverpod/server.dart';
 
 class AppUserEndpoint extends Endpoint{
+
+
   Future<AppUser?> createUser(Session session, AppUser user) async{
     try{
       final response = await session.db.transaction((transaction) async {
@@ -54,34 +54,36 @@ class AppUserEndpoint extends Endpoint{
     }
   }
 
-  Future<AppUser?> updateUser(Session session, AppUser appuser) async {
-    try {
-      final existingUser = await AppUser.db.findById(session, appuser.id!);
-      if (existingUser == null) {
-        return null; // User not found
-      }
-
-      // Update fields
-      existingUser.name = appuser.name;
-      existingUser.email = appuser.email;
-      existingUser.phone = appuser.phone;
-      existingUser.passwordHash = appuser.passwordHash;
-      existingUser.role = appuser.role;
-      existingUser.longitude = appuser.longitude;
-      existingUser.latitude = appuser.latitude;
-      existingUser.isActive = appuser.isActive;
-      existingUser.isVerified = appuser.isVerified;
-
-
-
-
-      await AppUser.db.updateRow(session, existingUser);
-      return existingUser;
-    } catch (e, s) {
-      print('Error ${e.toString()}, ${s.toString()}');
-      return null;
-    }
-  }
+  // Future<AppUser?> updateUser(Session session, AppUser user) async {
+  //
+  //
+  //   try {
+  //     final existingUser = await AppUser.db.findById(session, appuserId);
+  //     if (existingUser == null) {
+  //       return null; // User not found
+  //     }
+  //
+  //     // Update fields
+  //     existingUser.name = user.name;
+  //     existingUser.email = user.email;
+  //     existingUser.phone = user.phone;
+  //     existingUser.passwordHash = user.passwordHash;
+  //     existingUser.role = user.role;
+  //     existingUser.longitude = user.longitude;
+  //     existingUser.latitude = user.latitude;
+  //     existingUser.isActive = user.isActive;
+  //     existingUser.isVerified = user.isVerified;
+  //
+  //
+  //
+  //
+  //     await AppUser.db.updateRow(session, existingUser);
+  //     return existingUser;
+  //   } catch (e, s) {
+  //     print('Error ${e.toString()}, ${s.toString()}');
+  //     return null;
+  //   }
+  // }
   String passwordHash(String password) {
     // Hash password using SHA-256
     final bytes = utf8.encode(password);

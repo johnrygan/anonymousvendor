@@ -18,25 +18,25 @@ enum UserRole implements _i1.SerializableModel {
   vendor,
   admin;
 
-  static UserRole fromJson(int index) {
-    switch (index) {
-      case 0:
+  static UserRole fromJson(String name) {
+    switch (name) {
+      case 'user':
         return UserRole.user;
-      case 1:
+      case 'guest':
         return UserRole.guest;
-      case 2:
+      case 'superuser':
         return UserRole.superuser;
-      case 3:
+      case 'vendor':
         return UserRole.vendor;
-      case 4:
+      case 'admin':
         return UserRole.admin;
       default:
-        throw ArgumentError('Value "$index" cannot be converted to "UserRole"');
+        throw ArgumentError('Value "$name" cannot be converted to "UserRole"');
     }
   }
 
   @override
-  int toJson() => index;
+  String toJson() => name;
   @override
   String toString() => name;
 }

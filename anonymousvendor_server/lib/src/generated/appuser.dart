@@ -49,7 +49,7 @@ abstract class AppUser
       email: jsonSerialization['email'] as String,
       phone: jsonSerialization['phone'] as String,
       passwordHash: jsonSerialization['passwordHash'] as String,
-      role: _i2.UserRole.fromJson((jsonSerialization['role'] as int)),
+      role: _i2.UserRole.fromJson((jsonSerialization['role'] as String)),
       longitude: (jsonSerialization['longitude'] as num).toDouble(),
       latitude: (jsonSerialization['latitude'] as num).toDouble(),
       isActive: jsonSerialization['isActive'] as bool,
@@ -253,7 +253,7 @@ class AppUserTable extends _i1.Table<int?> {
     role = _i1.ColumnEnum(
       'role',
       this,
-      _i1.EnumSerialization.byIndex,
+      _i1.EnumSerialization.byName,
     );
     longitude = _i1.ColumnDouble(
       'longitude',
